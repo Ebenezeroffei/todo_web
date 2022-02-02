@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import { postData } from '../utils/utils';
-import Error from './Error';
+import { generateEndpoints, postData } from '../utils/utils';
+import {Error} from './Error';
 
 const SignUp = () => {
 
@@ -28,7 +28,7 @@ const SignUp = () => {
         const emailRegex = /^[a-zA-Z][a-z\d]+@[a-z]+\.[a-z]+(\.[a-z]+)?$/;
         if(username && password == password2 && emailRegex.test(email)){
             setError('');
-            let url = "http://localhost:8000/auth/register/"
+            let url = generateEndpoints('register');
             postData(url,userInfo)
             .then(data => {
                 console.log(data);

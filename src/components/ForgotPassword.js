@@ -1,5 +1,6 @@
-import React,{ useState } from 'react';
-import Error from './Error';
+import React,{ useState,useEffect } from 'react';
+import {Error,Info} from './Error';
+import {generateEndpoints,postData} from '../utils/utils';
 
 
 const RequestPasswordReset = ({show,changeLevel}) => {
@@ -14,10 +15,19 @@ const RequestPasswordReset = ({show,changeLevel}) => {
     const submitEmail = () => {
         let emailRegex = /^[a-zA-Z][a-zA-Z\d]+@[a-z]+\.[a-z]+(\.[a-z]+)?$/
         if(emailRegex.test(email)){
-            console.log("Success")
             // Clear Error
-            setError('');
-            changeLevel(1)
+            // Send request
+            const url = generateEndpoints('passwordReset');
+            let data = {email};
+            postData(url,data)
+            .then(resData => {
+                setError('');
+                console.log(data)
+                changeLevel(1)
+            })
+            .catch(() => {
+                setError("Enter a the same email you used when signing up.")
+            })
         }
         else{
             setError("Enter a valid email.")
@@ -46,7 +56,12 @@ const RequestPasswordReset = ({show,changeLevel}) => {
 
 const ValidateToken = ({show,changeLevel}) => {
     let [error,setError] = useState('');
+    let [info,setInfo] = useState('Enter the token which has been sent to your email.');
     let [token,setToken] = useState('');
+
+    useEffect(() => {
+        show && setTimeout(() => setInfo(""),8000);
+    },[show])
 
     const handleChange = (e) => {
         let value = e.target.value;
@@ -55,12 +70,22 @@ const ValidateToken = ({show,changeLevel}) => {
 
     const submitToken = () => {
         if(token){
-            console.log("Token Success")
-            setError('');
-            changeLevel(2);
+            // Send request
+            const url = generateEndpoints('validateToken');
+            let data = {token};
+            postData(url,data)
+            .then(resData => {
+                console.log(resData)
+                setError('');
+                changeLevel(2);
+                localStorage.setItem('token',token);
+            })
+            .catch(() => {
+                setError("Enter the token sent to your email.");
+            });
         }
         else{
-            setError("Enter the token sent to your email.")
+            setError("Enter the token sent to your email.");
         }
     }
 
@@ -70,6 +95,7 @@ const ValidateToken = ({show,changeLevel}) => {
                 <section className='mx-auto mt-4 max-w-md sm:rounded-lg border-2 py-8 px-4 mt-20'>
                     <h2 className='text-left font-semivold text-gray-800'>Validate Token</h2>
                     <Error error={error}/>
+                    <Info info={info}/>
                     <form className='mt-4'>
                         <div className='text-left'>
                             <label className='font-light text-gray-600 text-sm block text-left'>Token:</label>
@@ -105,8 +131,16 @@ const ResetPassword = ({show,changeLevel}) => {
     const submitNewPassword = () => {
         let {password1,password2} = newPasswords;
         if(password1 && password2 && password1 === password2 ){
-            console.log("Password Sucess");
-            setError('')
+            // Send request
+            const url = generateEndpoints('passwordResetConfirm');
+            const token = localStorage.getItem('token');
+            let data = {token,'password':password1};
+            postData(url,data)
+            .then(resData => {
+                console.log(resData)
+                setError('');
+                localStorage.clear();
+            })
         }
         else{
             setError("Make sure you have entered the same passwords in each field.")
@@ -124,7 +158,7 @@ const ResetPassword = ({show,changeLevel}) => {
                             <label className='font-light text-gray-600 text-sm block text-left'>New Password:</label>
                             <input type="password" onChange={handleChange} name='password1' value={newPasswords.password1} className='border-0 border-b-2 w-full mt-1 outline-none p-2 text-sm focus:border-blue-500' />
                         </div>
-                        <div className='text-left'>
+                        <div className='text-left mt-3'>
                             <label className='font-light text-gray-600 text-sm block text-left'>New Password Confirmation:</label>
                             <input type="password" onChange={handleChange} name='password2' value={newPasswords.password2} className='border-0 border-b-2 w-full mt-1 outline-none p-2 text-sm focus:border-blue-500' />
                         </div>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import Error from './Error';
-import { postData } from '../utils/utils';
+import {Error} from './Error';
+import { postData,generateEndpoints } from '../utils/utils';
 
 const SignIn = () => {
     const [userInfo,setUserInfo] = useState({
@@ -22,7 +22,7 @@ const SignIn = () => {
     const signIn = () => {
         if(userInfo.username && userInfo.password){
             setError('');
-            const url = "http://localhost:8000/auth/login/";
+            const url = generateEndpoints('login')
             postData(url,userInfo)
             .then((data) => {
                 if(data.status === "OK"){
