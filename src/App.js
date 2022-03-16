@@ -1,16 +1,12 @@
 import React from 'react';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import ForgotPassword from './components/ForgotPassword';
+import Wrapper from './components/Wrapper';
 
 
 function App() {
   return (
-    <div className='text-center text-2xl font-semibold bg-'>
-      {/* <SignUp/> */}
-      {/* <SignIn/> */}
-      <ForgotPassword/>
-    </div>
+    <>
+      <Wrapper/>
+    </>
   );
 }
 

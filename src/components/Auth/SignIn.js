@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import {Error} from './Error';
-import { postData,generateEndpoints } from '../utils/utils';
+import {Error} from '../Misc/Error';
+import { postData,generateEndpoints } from '../../utils/utils';
 
 const SignIn = () => {
     const [userInfo,setUserInfo] = useState({
