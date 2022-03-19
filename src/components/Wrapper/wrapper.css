@@ -1,8 +1,10 @@
+/* Top bar */
 #top-bar img{
     width: 100%;
     height: 230px;
 }
 
+/* Hamburger */
 #hamburger{
     width: 32px;
     height: 26px;
@@ -45,5 +47,10 @@
     top: -4px;
 }
 
+/* Navbar */
 #navbar-wrapper{
+    width: 250px;
+}
+#wrapper.show > #navbar-wrapper{
+    width: 0px;
 }

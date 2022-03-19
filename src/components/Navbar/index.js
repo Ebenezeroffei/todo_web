@@ -2,8 +2,7 @@ import React from 'react';
 import SidePanel from './SidePanel';
 import './navbar.css'
 
-const Navbar = ({show}) => {
-    console.log(show)
+const Navbar = () => {
     return (
         <>
             <main id='navbar'>
