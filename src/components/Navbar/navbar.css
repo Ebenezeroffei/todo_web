@@ -1,11 +1,4 @@
-#navbar #side-panel, #navbar-small #side-panel{
-    width: 250px;
-    height: 100vh;
-    background-color: white;
-    @apply border-r;
-}
-
-/* Smal navbar */
-#navbar-small.show{
-    left: -100vw;
+#navbar-list{
+    height: calc(100vh - 282px);
+    overflow: auto;
 }
