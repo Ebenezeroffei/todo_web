@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Navbar from '../Navbar';
+import Hamburger from './Hamburger';
 
 const Wrapper = () => {
     const [showBigScreenNavbar,setShowBigScreenNavbar] = useState(true);
@@ -7,12 +8,12 @@ const Wrapper = () => {
     const [screenSize,setScreenSize] = useState(window.innerWidth);
 
     useEffect(() => {
-        window.onresize = () => {
-            // if(window.innerWidth < 800){
-            //     setShowBigScreenNavbar(false);
-            // }
-            // window.innerWidth < 800 ? setShowBigScreenNavbar(false): setShowBigScreenNavbar(true);
-        }
+        // window.onresize = () => {
+        //     if(window.innerWidth < 800){
+        //         setShowBigScreenNavbar(false);
+        //     }
+        //     window.innerWidth < 800 ? setShowBigScreenNavbar(false): setShowBigScreenNavbar(true);
+        // }
     },[]);
 
     const search = (e)  => {
@@ -32,8 +33,10 @@ const Wrapper = () => {
                 >
                     <Navbar searchQuery={searchQuery} searchFunc={search} />
                 </div>
+                
                 <div className='bg-green-500 w-full'>
-                    <section className='overflow-auto w-full h-full bg-blue-500'>
+                    <section className='overflow-auto w-full h-full bg-blue-500 p-2'>
+                        <Hamburger/>
                         <h1 className='text-5xl'> 
                             {searchQuery}
                         </h1>

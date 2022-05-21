@@ -30,18 +30,11 @@ const Navbar = ({searchQuery,searchFunc}) => {
                 <NavbarSearch searchFunc={searchFunc} searchQuery={searchQuery}/>
                 <ul id='navbar-list'>
                     {navbarDefaultItems.map(
-                        item => <NavbarItem toggleActiveItem={toggleActiveItem} id={item.id} key={item.key} active={item.active} image={item.image} name={item.name} />
-                    )}
-                    <hr />
-                    {navbarDefaultItems.map(
-                        item => <NavbarItem toggleActiveItem={toggleActiveItem} id={item.id} key={item.key} active={item.active} image={item.image} name={item.name} />
-                    )}
-                    {navbarDefaultItems.map(
-                        item => <NavbarItem toggleActiveItem={toggleActiveItem} id={item.id} key={item.key} active={item.active} image={item.image} name={item.name} />
+                        item => <NavbarItem toggleActiveItem={toggleActiveItem} id={item.id} key={item.id} active={item.active} image={item.image} name={item.name} />
                     )}
                 </ul>
-                <div className='bg-gray-100 hover:bg-gray-200 transition-all duration-200 p-3 cursor-pointer'>
-                    <span className='text-3xl font-light mr-2 leading-3 relative top-0.5'>+</span> New List
+                <div className='bg-gray-100 hover:bg-gray-200 items-center transition-all flex duration-200 p-2 cursor-pointer'>
+                    <span className='text-3xl font-light mr-2 pb-1'>+</span> New List
                 </div>
             </section>
         </>
